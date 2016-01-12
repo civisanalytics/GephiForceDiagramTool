@@ -1,0 +1,148 @@
+plugins {
+    id "de.undercouch.download" version "2.1.0"
+}
+
+import de.undercouch.gradle.tasks.download.Download
+
+apply plugin: 'application'
+apply plugin: 'checkstyle'
+sourceCompatibility = 1.7
+targetCompatibility = 1.7
+
+repositories {
+    mavenCentral()
+    maven {
+        url "http://bits.netbeans.org/nexus/content/groups/netbeans/"
+    }
+    maven {
+        url "https://raw.github.com/gephi/gephi/mvn-thirdparty-repo/"
+    }
+}
+
+dependencies {
+    compile group: 'org.apache.commons', name: 'commons-math3', version: '3.4.1'
+    compile group: 'net.sourceforge.argparse4j', name: 'argparse4j', version: '0.4.4'
+    compile group: 'org.biojava', name: 'jcolorbrewer', version: '5.2'
+    compile group: 'org.gephi', name: 'gephi-toolkit', version: '0.9.1', classifier: 'all'
+    testCompile group: 'junit', name: 'junit-dep', version: '4.10'
+    testCompile group: 'org.mockito', name: 'mockito-all', version: '1.10.19'
+}
+
+mainClassName = "com.civisanalytics.gephi.CreateGephiForceDiagram"
+
+def dataDir = file("data")
+task downloadTestFile(type: Download) {
+    doFirst {
+        dataDir.mkdirs()
+    }
+    src 'http://www-personal.umich.edu/~mejn/netdata/adjnoun.zip'
+        dest "${dataDir}/adjnoun.zip"
+}
+
+// Only download test file once
+downloadTestFile.onlyIf {!file("${dataDir}/adjnoun.zip").exists()}
+
+task downloadAndUnzipTestFile(dependsOn: downloadTestFile, type: Copy) {
+    inputs.file "${dataDir}/adjnoun.zip"
+    outputs.file "${dataDir}/adjnoun.gml"
+    from zipTree(downloadTestFile.dest)
+        into dataDir
+}
+
+clean.doFirst {
+    delete dataDir
+}
+
+task runFA2Test (type:JavaExec, dependsOn: downloadAndUnzipTestFile) {
+    classpath = sourceSets.main.runtimeClasspath
+    main = "com.civisanalytics.gephi.CreateGephiForceDiagram"
+    args([ '--gml_input_file', "${dataDir}/adjnoun.gml",
+           '--png_output_file', "${dataDir}/adjnoun_fa2.png",
+           '--layout_algorithm', 'force_atlas2',
+           '--gravity', '0.5',
+           '--scaling_ratio', '150.0',
+           '--jitter_tolerance', '1.5',
+           '--degree_filter', '0',
+           '--node_label_column', 'label',
+           '--node_size_column', 'value',
+           '--node_color_column', 'value',
+           '--min_node_size', '30',
+           '--max_node_size', '50',
+           '--min_label_size', '1',
+           '--max_label_size', '2',
+           '--layout_time_seconds', '5',
+           '--edge_opacity', '30',
+           '--color_palette_source', 'colorbrewer',
+           '--color_palette_type', 'diverging',
+           '--color_palette_number', '0',
+           '--num_colors', '2',
+           '--node_color_type', 'ranking',
+           '--label_percentile', '0' ])
+}
+
+task runFATest (type:JavaExec, dependsOn: downloadAndUnzipTestFile) {
+    classpath = sourceSets.main.runtimeClasspath
+    main = "com.civisanalytics.gephi.CreateGephiForceDiagram"
+    args([ '--gml_input_file', "${dataDir}/adjnoun.gml",
+           '--png_output_file', "${dataDir}/adjnoun_fa.png",
+           '--layout_algorithm', 'force_atlas',
+           '--gravity', '0.5',
+           '--scaling_ratio', '150.0',
+           '--speed', '1',
+           '--inertia', '0.1',
+           '--degree_filter', '0',
+           '--node_label_column', 'label',
+           '--node_size_column', 'value',
+           '--node_color_column', 'value',
+           '--min_node_size', '30',
+           '--max_node_size', '50',
+           '--min_label_size', '6',
+           '--max_label_size', '10',
+           '--label_adjust',
+           '--label_adjust_time_seconds', '1',
+           '--layout_time_seconds', '5',
+           '--edge_opacity', '30',
+           '--color_palette_source', 'gephi',
+           '--color_palette_type', 'qualitative',
+           '--color_palette_number', '0',
+           '--num_colors', '9',
+           '--node_color_type', 'partition',
+           '--label_percentile', '0' ])
+}
+
+
+task runClimateTest (type:JavaExec) {
+    classpath = sourceSets.main.runtimeClasspath
+    main = "com.civisanalytics.gephi.CreateGephiForceDiagram"
+    args([ '--gml_input_file', "${dataDir}/climatechange.gml",
+           '--png_output_file', "${dataDir}/climatechange.png",
+           '--layout_algorithm', 'force_atlas2',
+           '--gravity', '0.1',
+           '--scaling_ratio', '400.0',
+           '--jitter_tolerance', '1.5',
+           '--degree_filter', '5',
+           '--node_label_column', 'handle',
+           '--node_size_column', 'centrality',
+           '--node_color_column', 'community',
+           '--min_node_size', '50',
+           '--max_node_size', '200',
+           '--min_label_size', '8',
+           '--max_label_size', '20',
+           '--layout_time_seconds', '30',
+           '--edge_opacity', '50',
+           '--color_palette_source', 'gephi',
+           '--color_palette_type', 'qualitative',
+           '--color_palette_number', '1',
+           '--num_colors', '3',
+           '--node_color_type', 'partition',
+           '--label_percentile', '90',
+           '--label_adjust',
+           '--label_adjust_time', 60 ])
+}
+
+task runHelp (type:JavaExec) {
+    ignoreExitValue = true
+    classpath = sourceSets.main.runtimeClasspath
+    main = "com.civisanalytics.gephi.CreateGephiForceDiagram"
+    args([ '--help' ])
+}
