@@ -1,5 +1,7 @@
 # GephiForceDiagramTool
 
+[![Build Status](https://travis-ci.org/civisanalytics/GephiForceDiagramTool.svg?branch=master)](https://travis-ci.org/civisanalytics/GephiForceDiagramTool)
+
 A lightweight command-line utility for generating Gephi diagrams using the
 force-directed layout algorithm.
 
