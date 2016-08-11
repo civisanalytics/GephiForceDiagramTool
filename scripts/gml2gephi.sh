@@ -13,7 +13,7 @@ $JAVA -cp $CLASSPATH com.civisanalytics.gephi.CreateGephiForceDiagram \
     --gravity 0.5 \
     --scaling_ratio 5.0 \
     --jitter_tolerance 1.5 \
-    --layout_time_minutes 1 \
+    --layout_time_seconds 60 \
     --edge_opacity 10 \
     --label_adjust \
     --label_percentile 98
