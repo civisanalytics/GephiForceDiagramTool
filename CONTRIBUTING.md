@@ -5,7 +5,7 @@ This project is intended to be a safe, welcoming space for collaboration, and co
 
 ## Getting Started
 
-1. Fork it ( https://github.com/civisanalytics/swagger-diff/fork )
+1. Fork it ( https://github.com/civisanalytics/GephiForceDiagramTool/fork )
 2. Build the project (`./gradlew build`)
 3. Make sure you are able to run the tests locally (`./gradlew test`)
 4. Make sure you are able to generate the test diagrams (`./gradlew runFATest`)
@@ -19,9 +19,9 @@ This project is intended to be a safe, welcoming space for collaboration, and co
 ## Tips
 
 - Contributions must conform to the project's
-  [Checkstyle Style Guide](config/checkstyle/checkstyle.html).  See the
+  [Checkstyle Style Guide](config/checkstyle/checkstyle.xml).  See the
   [checkstyle documentation](http://checkstyle.sourceforge.net/config.html)
-  foor details; the style requirements will be enforced when you run
+  for details; the style requirements will be enforced when you run
   `./gradlew build`.
 - Don’t forget to add your change to the [CHANGELOG](CHANGELOG.md). See
   [Keep a CHANGELOG](http://keepachangelog.com/) for guidelines.
