@@ -4,6 +4,12 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+### Fixed
+
+- Fix typo in README
+- Fix typo and links in CONTRIBUTING.md
+- Fix layout option name in scripts/gml2gephi.sh
+
 ## [1.0.0] - 2016-07-28
 
 ### Added

@@ -222,4 +222,4 @@ GephiForceDiagramTool uses the following external packages:
 GephiForceDiagramTool is released under the [BSD 3-Clause License](LICENSE.txt)
 
 GephiForceDiagramTool is configured with the [Gradle wrapper](https://docs.gradle.org/current/userguide/gradle_wrapper.html),
-distributed under the [Apaghe License, Version 2.0](http://www.apache.org/licenses/LICENSE-2.0).
+distributed under the [Apache License, Version 2.0](http://www.apache.org/licenses/LICENSE-2.0).
