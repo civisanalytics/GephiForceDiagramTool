@@ -1,6 +1,6 @@
 # Maintenance
 
-:heavy_exclamation_mark:  This repository is released as is and is not actively maintained by Civis.
+:heavy_exclamation_mark:  This project is released as-is, and is not actively maintained by Civis Analytics.
 
 # GephiForceDiagramTool
 
