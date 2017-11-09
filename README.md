@@ -1,3 +1,7 @@
+# Maintenance
+
+:heavy_exclamation_mark:  This repository is released as is and is not actively maintained by Civis.
+
 # GephiForceDiagramTool
 
 [![Build Status](https://travis-ci.org/civisanalytics/GephiForceDiagramTool.svg?branch=master)](https://travis-ci.org/civisanalytics/GephiForceDiagramTool)
